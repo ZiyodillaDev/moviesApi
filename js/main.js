@@ -1,7 +1,9 @@
 let elList = document.querySelector(".list");
 let elInput = document.querySelector("input");
 let elForm = document.querySelector("form");
-
+let elPrevBtn = document.querySelector(".prev");
+let elNextBtn = document.querySelector(".next");
+let activePage = 1
 let inputVal = elInput.value;
 
 let newArr = [];
@@ -40,13 +42,38 @@ const render = (arr, node) => {
 
 elForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  fetch(`https://www.omdbapi.com/?apikey=4027b6ec&s=${elInput.value}`)
+if(elInput.value !== ""){
+  fetchFunc();
+}
+});
+function fetchFunc() {
+  if(activePage == 1){
+    elPrevBtn.setAttribute("disabled","true")
+  }else{
+    elPrevBtn.removeAttribute("disabled")
+  }
+  fetch(`https://www.omdbapi.com/?apikey=4027b6ec&s=${elInput.value}&page=${activePage}`)
     .then((response) => response.json())
     .then((data) => {
       if (data) {
         render(data.Search, elList);
+      }else{
+        elList.innerHTML= `<h4 class="my-5 text-center text-danger">Film topilmadi☹️</h4>`
+      }
+
+      if(activePage == Math.ceil(data.totalResults / 10)){
+    elNextBtn.setAttribute("disabled","true")
+      }else{
+        elNextBtn.removeAttribute("disabled")
       }
     });
-  elInput.value = "";
-});
+}
+elPrevBtn.addEventListener("click",()=>{
+  activePage--;
+  fetchFunc();
+})
 
+elNextBtn.addEventListener("click",()=>{
+  activePage++;
+  fetchFunc();
+})

@@ -1,0 +1,20 @@
+input::-moz-placeholder {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+input:-ms-input-placeholder {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+input, input::placeholder {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: none;
+}/*# sourceMappingURL=main.css.map */
