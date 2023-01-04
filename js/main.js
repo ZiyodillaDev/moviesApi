@@ -55,7 +55,7 @@ function fetchFunc() {
   fetch(`https://www.omdbapi.com/?apikey=4027b6ec&s=${elInput.value}&page=${activePage}`)
     .then((response) => response.json())
     .then((data) => {
-      if (data) {
+      if (data.Search) {
         render(data.Search, elList);
       }else{
         elList.innerHTML= `<h4 class="my-5 text-center text-danger">Film topilmadi☹️</h4>`
